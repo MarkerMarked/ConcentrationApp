@@ -12,6 +12,7 @@
 
 import Foundation
 
+//Model of the Concentration game
 class Concentration {
     
 //Variables

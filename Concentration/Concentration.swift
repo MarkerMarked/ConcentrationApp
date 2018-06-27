@@ -15,10 +15,10 @@ import Foundation
 class Concentration {
     
 //Variables
-    var flipCount = 0
-    var scoreCount = 0
-    var cards = [Card]()
-    var indexOfSingleFaceUpCard: Int? {
+    private(set) var flipCount = 0
+    private(set) var scoreCount = 0
+    private(set) var cards = [Card]()
+    private var indexOfSingleFaceUpCard: Int? {
         get {
             var foundIndex: Int?
             for searchIndex in cards.indices {
@@ -74,7 +74,7 @@ class Concentration {
         let numberOfCards = numberOfPairsOfCards*2
         var tempCards = [Card]()
         
-        Card.identifierFactory = 0
+        Card.newCardSet()
         for _ in 0..<numberOfPairsOfCards{
             let card = Card()
             //Assigning struct COPPIES it

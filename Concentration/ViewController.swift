@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 //
 //VARIABLES
 //
-    var scoreCount = 0 {
+    private(set) var scoreCount = 0 {
         didSet {
             scoreLabel.text = "Score: \(scoreCount)"
         }
@@ -24,14 +24,14 @@ class ViewController: UIViewController {
            return (cardButtons.count+1)/2
     }
     
-    lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    private lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBOutlet weak var flipLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet private weak var flipLabel: UILabel!
+    @IBOutlet private weak var scoreLabel: UILabel!
     
-    var emojiSelection = [Int:Character]()
+    private var emojiSelection = [Int:Character]()
     let emojiThemeDict: [Int:Theme] = [0:Theme(emojis: ["💵","📈","📉","💰","💸","🏆","🤑","💎"]),
                                        1:Theme(emojis: ["📱","💻","☎️","📷","🎙","🔋","📡","🔭"]),
                                        2:Theme(emojis: ["❤️","🧡","💛","💚","💙","💜","🖤","💔"]),
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
 //
     
     //Press New Game Button
-    @IBAction func pressNewGame(_ sender: UIButton) {
+    @IBAction private func pressNewGame(_ sender: UIButton) {
         game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
         //Chose a new game theme
         Theme.pickRandomTheme()
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     }
     
     //Press one Card
-    @IBAction func pressCard(_ sender: UIButton) {
+    @IBAction private func pressCard(_ sender: UIButton) {
         if let cardNumber = cardButtons.index(of: sender){
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     }
     
     //Update overall view
-    func updateViewFromModel(){
+    private func updateViewFromModel(){
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     }
     
     //Pick Emoji for each card pair
-    func emoji(for card: Card) -> Character {
+    private func emoji(for card: Card) -> Character {
         
         //Pull selected theme String
         let themeIndex = Theme.selectedTheme
@@ -92,11 +92,8 @@ class ViewController: UIViewController {
                 emojiSelection[card.identifier] = selectedTheme.emojis[card.identifier]
             }
         }
-        
         return emojiSelection[card.identifier] ?? "?"
     }
-    
-    
-    
+
 }
 

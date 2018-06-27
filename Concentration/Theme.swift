@@ -12,7 +12,7 @@ struct Theme {
     var emojis = [Character]()
     
     static var selectedTheme = 0
-    static var numberOfThemes = 0
+    private(set) static var numberOfThemes = 0
     
     static func pickRandomTheme() {
         selectedTheme = Int(arc4random_uniform(UInt32(numberOfThemes)))

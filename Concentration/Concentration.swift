@@ -89,14 +89,26 @@ class Concentration {
         }
         
         for index in 0..<numberOfCards {
-            let randomIndex = Int(arc4random_uniform(UInt32(numberOfCards - index - 1)))
-            
-            newShuffleOrder.append(shuffleOrder.remove(at: randomIndex))
+            newShuffleOrder.append(shuffleOrder.remove(at: (numberOfCards-index-1).arc4random))
         }
         
         for index in 0..<numberOfCards {
             cards.append(tempCards[newShuffleOrder[index]])
         }
         
+    }
+}
+
+extension Int {
+    var arc4random: Int {
+        if self > 0 {
+            return Int(arc4random_uniform(UInt32(self)))
+        }
+        else if self < 0 {
+            return -Int(arc4random_uniform(UInt32(abs(self))))
+        }
+        else {
+            return 0
+        }
     }
 }

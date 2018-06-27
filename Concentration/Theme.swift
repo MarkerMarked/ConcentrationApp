@@ -15,13 +15,12 @@ struct Theme {
     private(set) static var numberOfThemes = 0
     
     static func pickRandomTheme() {
-        selectedTheme = Int(arc4random_uniform(UInt32(numberOfThemes)))
+        selectedTheme = numberOfThemes.arc4random
     }
     
     init(emojis inputEmojis: [Character]) {
         self.emojis = inputEmojis
         Theme.numberOfThemes += 1
         Theme.pickRandomTheme()
-        
     }
 }

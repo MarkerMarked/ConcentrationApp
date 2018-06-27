@@ -43,8 +43,8 @@ class Concentration {
 
 //Functions
     func chooseCard(at index: Int){
-        if !cards[index].isMatched {    //Ignore all matched cards
-            
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in cards")
+        if !cards[index].isMatched {                                                //Ignore all matched cards
             if let matchIndex = indexOfSingleFaceUpCard, matchIndex != index {      //Already one single card face up
                 flipCount += 1                                                      //Flip count
                 if cards[index].identifier == cards[matchIndex].identifier {        //Check if cards match
@@ -60,8 +60,8 @@ class Concentration {
                 }
                 cards[index].isFaceUp = true
             }
-            else {                      //Either no cards or 2 cards are face up
-                flipCount += 1          //Flip count
+            else {                                                                  //Either no cards or 2 cards are face up
+                flipCount += 1                                                      //Flip count
                 indexOfSingleFaceUpCard = index         //Index selected card
             }
         }
@@ -69,7 +69,7 @@ class Concentration {
     
 //Initialization
     init(numberOfPairsOfCards: Int){
-        
+        assert(numberOfPairsOfCards > 0, "Concentration.init(\(numberOfPairsOfCards)): numberOfPairsOfCards is <0")
         var shuffleOrder = [Int]()
         var newShuffleOrder = [Int]()
         let numberOfCards = numberOfPairsOfCards*2

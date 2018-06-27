@@ -20,7 +20,11 @@ class ViewController: UIViewController {
         }
     }
     
-    lazy var game: Concentration = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
+    var numberOfPairsOfCards: Int {
+           return (cardButtons.count+1)/2
+    }
+    
+    lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     @IBOutlet var cardButtons: [UIButton]!
     
@@ -42,7 +46,7 @@ class ViewController: UIViewController {
     
     //Press New Game Button
     @IBAction func pressNewGame(_ sender: UIButton) {
-        game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
+        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
         //Chose a new game theme
         Theme.pickRandomTheme()
         emojiSelection = [:]

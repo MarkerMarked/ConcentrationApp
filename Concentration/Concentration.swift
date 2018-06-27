@@ -15,11 +15,31 @@ import Foundation
 class Concentration {
     
 //Variables
-    var cards = [Card]()
-    var indexOfSingleFaceUpCard: Int?
     var flipCount = 0
     var scoreCount = 0
-    
+    var cards = [Card]()
+    var indexOfSingleFaceUpCard: Int? {
+        get {
+            var foundIndex: Int?
+            for searchIndex in cards.indices {
+                if cards[searchIndex].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = searchIndex
+                    }
+                    else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set {
+            for flipDownIndex in cards.indices {
+                cards[flipDownIndex].isFaceUp = (flipDownIndex == newValue)
+            }
+        }
+    }
+
 //Functions
     func chooseCard(at index: Int){
         if !cards[index].isMatched {    //Ignore all matched cards
@@ -38,17 +58,10 @@ class Concentration {
                     cards[matchIndex].hasBeenMismatched = true
                 }
                 cards[index].isFaceUp = true
-                indexOfSingleFaceUpCard = nil
             }
-                
             else {                      //Either no cards or 2 cards are face up
                 flipCount += 1          //Flip count
-                
-                for flipDownIndex in cards.indices{         //Flip all face down
-                    cards[flipDownIndex].isFaceUp = false
-                }
-                    cards[index].isFaceUp = true            //Flip selected face up
-                    indexOfSingleFaceUpCard = index         //Index selected card
+                indexOfSingleFaceUpCard = index         //Index selected card
             }
         }
     }
@@ -56,7 +69,6 @@ class Concentration {
 //Initialization
     init(numberOfPairsOfCards: Int){
         
-//Variables
         var shuffleOrder = [Int]()
         var newShuffleOrder = [Int]()
         let numberOfCards = numberOfPairsOfCards*2

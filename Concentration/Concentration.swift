@@ -13,7 +13,7 @@
 import Foundation
 
 //Model of the Concentration game
-class Concentration {
+struct Concentration {
     
 //Variables
     private(set) var flipCount = 0
@@ -42,7 +42,7 @@ class Concentration {
     }
 
 //Functions
-    func chooseCard(at index: Int){
+    mutating func chooseCard(at index: Int){
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in cards")
         if !cards[index].isMatched {                                                //Ignore all matched cards
             if let matchIndex = indexOfSingleFaceUpCard, matchIndex != index {      //Already one single card face up
